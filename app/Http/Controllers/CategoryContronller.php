@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Repository\CategoryRepositoryInterface;
-use Validator;
-
+use App\Repository\MediaRepositoryInterface;
+use Validator; 
 class CategoryContronller extends Controller
 {
     private $categoryRepository;
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    private $mediaRepository;
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository, 
+        MediaRepositoryInterface $mediaRepository)
     {
         $this->middleware('auth:api', ['except' => ['insertCategory']]);
         $this->categoryRepository = $categoryRepository;
+        $this->mediaRepository = $mediaRepository;
+        
     }
 
 
@@ -62,7 +67,7 @@ class CategoryContronller extends Controller
 
     public function insertCategory(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+         $validator = Validator::make($request->all(), [
             'id_user' => 'required|integer',
             'id_parent' => 'integer|nullable',
             'title' => 'required|string',
@@ -72,9 +77,9 @@ class CategoryContronller extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
-        }
-        $category = $this->categoryRepository->createCategory(array_merge($validator->validated()));
-
+        } 
+        $category = $this->categoryRepository->createCategory(array_merge($validator->validated())); 
+        $this->mediaRepository->addCategoryImages($category->id, $request->file('file'));
         return response()->json([
             'success' => 'Catégory a été bien enregistrer',
             'category' => $category,

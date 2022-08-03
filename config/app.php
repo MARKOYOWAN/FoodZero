@@ -177,6 +177,11 @@ return [
         App\Providers\RepositoryServiceProvider::class,
 
         /**
+         * Package image
+         */
+        Intervention\Image\ImageServiceProvider::class,
+
+        /**
          * Auth
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
@@ -234,7 +239,8 @@ return [
         'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
+        'View' => Illuminate\Support\Facades\View::class, 
+        'Image' => Intervention\Image\Facades\Image::class,
 
         /**
          * Auth

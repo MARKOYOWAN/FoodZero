@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryContronller;
+use App\Http\Controllers\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +48,16 @@ Route::group([
     'prefix' => 'category'
 ], function ($router) {
     Route::post('/insertCategory', [CategoryContronller::class, 'insertCategory']);  
+});
+
+
+/**
+ * Media
+ */
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'media'
+], function ($route) { 
+    Route::get('/category/original/{filename}', [MediaController::class, 'getMedia']); 
 });
