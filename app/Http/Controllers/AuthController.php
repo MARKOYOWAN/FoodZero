@@ -26,10 +26,46 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
+
+
+
     /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     * path="/auth/login",
+     * operationId="Register",
+     * tags={"LOGIN USER"},
+     * summary="User login",
+     * description="Login",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(),
+     *         @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *               required={"email", "password"}, 
+     *               @OA\Property(property="email", type="text"),
+     *               @OA\Property(property="password", type="password")
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Login Successfully",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Login Successfully",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function login(Request $request)
     {
@@ -119,7 +155,7 @@ class AuthController extends Controller
      * @OA\Get(
      *      path="/auth/user-profile",
      *      operationId="getAllCountrie",
-     *      tags={"ALL API"},
+     *      tags={"GET USER"},
 
      *      summary="Get List User",
      *      description="All User",
