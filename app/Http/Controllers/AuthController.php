@@ -32,9 +32,9 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      * path="/auth/login",
-     * operationId="Register",
+     * operationId="Login",
      * tags={"LOGIN USER"},
-     * summary="User login",
+     * summary="User Login",
      * description="Login",
      *     @OA\RequestBody(
      *         @OA\JsonContent(),
@@ -81,11 +81,54 @@ class AuthController extends Controller
         }
         return $this->createNewToken($token);
     }
-    /**
-     * Register a User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+ 
+
+/**
+        * @OA\Post(
+        * path="/auth/register",
+        * operationId="Register",
+        * tags={"REGISTER USER"},
+        * summary="User Register",
+        * description="User Register here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"email", "password", "password_confirmation"},
+        *               @OA\Property(property="last_name", type="text"),
+        *               @OA\Property(property="fisrt_name", type="text"),
+        *               @OA\Property(property="number_phone", type="text"),
+        *               @OA\Property(property="email", type="text"),
+        *               @OA\Property(property="password", type="password"),
+        *               @OA\Property(property="password_confirmation", type="password")
+        *            ),
+        *        ),
+        *    ),
+        *      @OA\Response(
+        *          response=201,
+        *          description="Register Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=200,
+        *          description="Register Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(response=400, description="Bad request"),
+        *      @OA\Response(response=404, description="Resource Not Found"),
+        * )
+        */
+
+
+
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [

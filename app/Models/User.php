@@ -13,7 +13,12 @@ class User extends Authenticatable implements JWTSubject
     use  HasFactory, Notifiable;
     const CREATED_AT = 'created_on';
     const UPDATED_AT = 'updated_on';
-
+      /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['password'];
     /**
      * The attributes that are mass assignable.
      *
