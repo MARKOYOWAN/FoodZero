@@ -10,11 +10,10 @@ class CategoryRepository   implements CategoryRepositoryInterface
 {
     public function __construct()
     {
-       
     }
 
-    public function createCategory($data) {
-        
+    public function createCategory($data)
+    {
+        return Category::create($data);
     }
-
 }

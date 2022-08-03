@@ -73,8 +73,7 @@ class CategoryContronller extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        $category = Category::create(array_merge($validator->validated()));
-
+        $category = $this->categoryRepository->createCategory(array_merge($validator->validated()));
 
         return response()->json([
             'success' => 'Catégory a été bien enregistrer',
