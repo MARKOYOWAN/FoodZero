@@ -245,6 +245,81 @@
                     }
                 ]
             }
+        },
+        "/category/insertCategory": {
+            "post": {
+                "tags": [
+                    "INSERTION CATEGORY"
+                ],
+                "summary": "Insert category",
+                "description": "Category",
+                "operationId": "Category",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "id_user",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "id_user": {
+                                        "type": "integer"
+                                    },
+                                    "id_parent": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "text"
+                                    },
+                                    "description": {
+                                        "type": "text"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Login Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Login Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
         }
     },
     "components": {
