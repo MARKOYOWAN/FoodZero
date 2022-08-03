@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Validator;
 
+
+/**
+ *  @OA\SecurityScheme(
+ *      securityScheme="bearer_token",   
+ *      type="http",
+ *      scheme="bearer"
+ * )
+ **/
 class AuthController extends Controller
 {
     /**
@@ -107,14 +115,15 @@ class AuthController extends Controller
 
 
 
-/**
+    /**
      * @OA\Get(
      *      path="/auth/user-profile",
      *      operationId="getAllCountrie",
-     *      tags={"Tests"},
+     *      tags={"ALL API"},
 
      *      summary="Get List User",
      *      description="All User",
+     *      security={{"bearer_token":{}}},
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
