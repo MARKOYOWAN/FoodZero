@@ -127,8 +127,6 @@ class AuthController extends Controller
      */
 
 
-
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -153,9 +151,31 @@ class AuthController extends Controller
     }
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     * path="/auth/logout",
+     * operationId="Logout",
+     * tags={"LOGOUT USER"},
+     * summary="User Logout",
+     * description="Logout user", 
+     *    security={{"bearer_token":{}}},
+     *      @OA\Response(
+     *          response=201,
+     *          description="User is disconnected",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User is disconnected",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function logout()
     {
@@ -188,11 +208,6 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
-
-
-
-
-
 
     /**
      * @OA\Get(
