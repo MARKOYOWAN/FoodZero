@@ -84,15 +84,7 @@ class AuthController extends Controller
     {
         return $this->createNewToken(auth()->refresh());
     }
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function userProfile()
-    {
-        return response()->json(auth()->user());
-    }
+
     /**
      * Get the token array structure.
      *
@@ -108,5 +100,48 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+
+
+
+
+
+
+/**
+     * @OA\Get(
+     *      path="/auth/user-profile",
+     *      operationId="getAllCountrie",
+     *      tags={"Tests"},
+
+     *      summary="Get List User",
+     *      description="All User",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
+    public function userProfile()
+    {
+        return response()->json(auth()->user());
     }
 }
