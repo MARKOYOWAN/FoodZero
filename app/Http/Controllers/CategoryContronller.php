@@ -16,12 +16,48 @@ class CategoryContronller extends Controller
         CategoryRepositoryInterface $categoryRepository,
         MediaRepositoryInterface $mediaRepository
     ) {
-        $this->middleware('auth:api', ['except' => ['insertCategory', 'updateCategory']]);
+        $this->middleware('auth:api', ['except' => ['selecteCategory','insertCategory', 'updateCategory']]);
         $this->categoryRepository = $categoryRepository;
         $this->mediaRepository = $mediaRepository;
     }
 
 
+     /**
+     * @OA\Get(
+     *      path="/category/selectCategory",
+     *      operationId="getAllCategory",
+     *      tags={"GET CATEGORY"},
+     *      summary="Get List Category",
+     *      description="All Category", 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
+
+    public function selecteCategory() {
+        return response()->json($this->categoryRepository->tree());
+    }
 
     /**
      * @OA\Post(

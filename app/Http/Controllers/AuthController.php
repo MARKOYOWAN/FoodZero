@@ -212,7 +212,7 @@ class AuthController extends Controller
     /**
      * @OA\Get(
      *      path="/auth/user-profile",
-     *      operationId="getAllCountrie",
+     *      operationId="getAllUser",
      *      tags={"GET USER"},
 
      *      summary="Get List User",

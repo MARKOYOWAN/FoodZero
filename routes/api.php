@@ -48,6 +48,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'category'
 ], function ($router) {
+    Route::get('/selectCategory', [CategoryContronller::class, 'selecteCategory']);
     Route::post('/insertCategory', [CategoryContronller::class, 'insertCategory']);
     Route::put('/updateCategory/{id}', [CategoryContronller::class, 'updateCategory']);
 });
