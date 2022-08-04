@@ -20,16 +20,6 @@ class MediaController extends Controller
     public function getMedia($type, Request $request) {
         $filename = str_replace("/api/media/", "", $request->getRequestUri());
         $path = storage_path('app/' . $filename); 
-
-        if (!File::exists($path)) {
-            if($type == 'original') {
-                $path = public_path('images/default_card.png');
-            }  
-            else {
-                abort(404);
-            }
-        }
-
         $file = File::get($path);
         $type = File::mimeType($path);
 

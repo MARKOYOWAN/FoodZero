@@ -41,7 +41,8 @@ class CategoryContronller extends Controller
      *               @OA\Property(property="id_parent", type="integer"),
      *               @OA\Property(property="title", type="text"),
      *               @OA\Property(property="description", type="text"),
-     *               @OA\Property(property="price", type="integer")
+     *               @OA\Property(property="price", type="integer"),
+     *               @OA\Property(property="file", type="file")
      *            ),
      *        ),
      *    ),

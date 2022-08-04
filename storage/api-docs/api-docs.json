@@ -277,6 +277,9 @@
                                     },
                                     "price": {
                                         "type": "integer"
+                                    },
+                                    "file": {
+                                        "type": "file"
                                     }
                                 },
                                 "type": "object"
