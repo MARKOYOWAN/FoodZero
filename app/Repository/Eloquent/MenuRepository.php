@@ -18,4 +18,10 @@ class MenuRepository   implements MenuRepositoryInterface
     public function updateMenu($id , $data) {
     
     }
+
+    public function allMenu() {
+        $menu = DB::table('menu')->get();
+        return $menu;
+    }
+
 }

@@ -15,11 +15,47 @@ class MenuController extends Controller
         MenuRepositoryInterface $menuRepository,
         MediaRepositoryInterface $mediaRepository
     ) {
-        $this->middleware('auth:api', ['except' => ['insertMenu', 'updateMenu']]);
+        $this->middleware('auth:api', ['except' => ['selectMenu','insertMenu', 'updateMenu']]);
         $this->menuRepository = $menuRepository;
         $this->mediaRepository = $mediaRepository;
     }
 
+      /**
+     * @OA\Get(
+     *      path="/menu/selectMenu",
+     *      operationId="getAllMenu",
+     *      tags={"GET MENU"},
+     *      summary="Get List Menu",
+     *      description="All Menu", 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */  
+
+    public function selectMenu() {
+        return response()->json($this->menuRepository->allMenu());
+    }
 
 
     /**
@@ -67,7 +103,8 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
-            'subtitle' => 'required|string',
+            'subtitle' => 'nullable|string',
+            'display_order' => 'nullable|integer',
             'description' => 'string|nullable',
         ]);
 
@@ -77,7 +114,10 @@ class MenuController extends Controller
         $return_response = $this->menuRepository->createMenu(array_merge($validator->validated()));
         $name_file = 'menu';
         $id_name = 'id_menu';
-        $this->mediaRepository->addStandardImages($return_response->id, $request->file('file'), $name_file, $id_name);
+        $file  = $request->file('file');
+        if(isset($file)) {
+            $this->mediaRepository->addStandardImages($return_response->id, $request->file('file'), $name_file, $id_name);
+        }
         return response()->json([
             'success' => 'Menu a été bien enregistrer',
             'menu' => $return_response,

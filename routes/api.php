@@ -74,5 +74,6 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'menu'
 ], function ($route) {
+    Route::get('/selectMenu', [MenuController::class, 'selectMenu']);
     Route::post('/insertMenu', [MenuController::class, 'insertMenu']);
 });

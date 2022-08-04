@@ -13,12 +13,12 @@ class MediaRepository  implements MediaRepositoryInterface
      * Insert image category
      */
 
-    public function addStandardImages($idCategory, $files, $name_file, $id_name)
+    public function addStandardImages($id, $files, $name_file, $id_name)
     {
         $data = [];
         $path = $this->uploadImage($files, $name_file);
         $data[] = [
-            $id_name => $idCategory,
+            $id_name => $id,
             'path' => $path,
         ];
         return Media::insert($data);
