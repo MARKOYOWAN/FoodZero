@@ -42,7 +42,7 @@ class CategoryContronller extends Controller
      *               @OA\Property(property="title", type="text"),
      *               @OA\Property(property="description", type="text"),
      *               @OA\Property(property="price", type="integer"),
-     *               @OA\Property(property="file", type="file")
+     *               @OA\Property(property="file",   type="string", format="binary")
      *            ),
      *        ),
      *    ),

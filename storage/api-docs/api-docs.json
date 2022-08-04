@@ -279,7 +279,8 @@
                                         "type": "integer"
                                     },
                                     "file": {
-                                        "type": "file"
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
