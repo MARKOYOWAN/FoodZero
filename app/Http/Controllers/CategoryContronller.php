@@ -80,7 +80,9 @@ class CategoryContronller extends Controller
             return response()->json($validator->errors(), 400);
         }
         $return_response = $this->categoryRepository->createCategory(array_merge($validator->validated()));
-        $this->mediaRepository->addCategoryImages($return_response->id, $request->file('file'));
+        $name_file = 'category';
+        $id_name = 'id_category';
+        $this->mediaRepository->addStandardImages($return_response->id, $request->file('file'), $name_file , $id_name);
         return response()->json([
             'success' => 'Catégory a été bien enregistrer',
             'category' => $return_response,

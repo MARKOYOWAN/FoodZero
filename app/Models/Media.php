@@ -10,6 +10,7 @@ class Media extends Model {
     protected $fillable = [
         'id_users',
         'id_category',
+        'id_menu',
         'path',
     ];
 }

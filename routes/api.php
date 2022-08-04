@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryContronller;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
 
 
@@ -47,8 +48,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'category'
 ], function ($router) {
-    Route::post('/insertCategory', [CategoryContronller::class, 'insertCategory']);  
-    Route::put('/updateCategory/{id}', [CategoryContronller::class, 'updateCategory']);  
+    Route::post('/insertCategory', [CategoryContronller::class, 'insertCategory']);
+    Route::put('/updateCategory/{id}', [CategoryContronller::class, 'updateCategory']);
 });
 
 
@@ -59,6 +60,18 @@ Route::group([
 Route::group([
     'middleware' => 'api',
     'prefix' => 'media'
-], function ($route) { 
-    Route::get('/category/original/{filename}', [MediaController::class, 'getMedia']); 
+], function ($route) {
+    Route::get('/{path}/original/{filename}', [MediaController::class, 'getMedia']);
+});
+
+
+/**
+ * Menu
+ */
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'menu'
+], function ($route) {
+    Route::post('/insertMenu', [MenuController::class, 'insertMenu']);
 });

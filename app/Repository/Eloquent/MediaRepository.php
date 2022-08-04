@@ -9,13 +9,16 @@ use Image;
 class MediaRepository  implements MediaRepositoryInterface
 {
 
+    /**
+     * Insert image category
+     */
 
-    public function addCategoryImages($idCategory, $files)
+    public function addStandardImages($idCategory, $files, $name_file, $id_name)
     {
-        $data = []; 
-        $path = $this->uploadImage($files, 'category');
+        $data = [];
+        $path = $this->uploadImage($files, $name_file);
         $data[] = [
-            'id_category' => $idCategory,
+            $id_name => $idCategory,
             'path' => $path,
         ];
         return Media::insert($data);

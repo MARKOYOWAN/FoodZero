@@ -371,7 +371,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Categorie a été bien inserer",
+                        "description": "Categorie a été bien modier",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -379,7 +379,79 @@
                         }
                     },
                     "200": {
-                        "description": "Categorie a été bien inserer",
+                        "description": "Categorie a été bien modier",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/menu/insertMenu": {
+            "post": {
+                "tags": [
+                    "INSERTION MENU"
+                ],
+                "summary": "Insert menu",
+                "description": "Menu",
+                "operationId": "Menu",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "text"
+                                    },
+                                    "description": {
+                                        "type": "text"
+                                    },
+                                    "subtitle": {
+                                        "type": "text"
+                                    },
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Menu a été bien inserer",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Menu a été bien inserer",
                         "content": {
                             "application/json": {
                                 "schema": {}

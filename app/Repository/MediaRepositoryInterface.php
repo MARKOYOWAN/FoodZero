@@ -3,6 +3,6 @@
 namespace App\Repository;
 
 interface MediaRepositoryInterface {
-    public function addCategoryImages($idCategory, $files);   
+    public function addStandardImages($idCategory, $files, $name_file , $id_name);  
 }
 
