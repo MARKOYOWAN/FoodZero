@@ -293,7 +293,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Login Successfully",
+                        "description": "Categorie a été bien inserer",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -301,7 +301,85 @@
                         }
                     },
                     "200": {
-                        "description": "Login Successfully",
+                        "description": "Categorie a été bien inserer",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/category/updateCategory/{id}": {
+            "put": {
+                "tags": [
+                    "UPDATE CATEGORY"
+                ],
+                "summary": "Update category",
+                "description": "Category update",
+                "operationId": "Category update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "text"
+                                    },
+                                    "description": {
+                                        "type": "text"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    },
+                                    "is_active": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categorie a été bien inserer",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Categorie a été bien inserer",
                         "content": {
                             "application/json": {
                                 "schema": {}

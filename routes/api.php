@@ -40,7 +40,7 @@ Route::group([
 
 
 /**
- * UserProfil
+ * Category
  */
 
 Route::group([
@@ -48,6 +48,7 @@ Route::group([
     'prefix' => 'category'
 ], function ($router) {
     Route::post('/insertCategory', [CategoryContronller::class, 'insertCategory']);  
+    Route::put('/updateCategory/{id}', [CategoryContronller::class, 'updateCategory']);  
 });
 
 

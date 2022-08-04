@@ -6,19 +6,19 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\MediaRepositoryInterface;
-use Validator; 
+use Validator;
+
 class CategoryContronller extends Controller
 {
     private $categoryRepository;
     private $mediaRepository;
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository, 
-        MediaRepositoryInterface $mediaRepository)
-    {
-        $this->middleware('auth:api', ['except' => ['insertCategory']]);
+        CategoryRepositoryInterface $categoryRepository,
+        MediaRepositoryInterface $mediaRepository
+    ) {
+        $this->middleware('auth:api', ['except' => ['insertCategory', 'updateCategory']]);
         $this->categoryRepository = $categoryRepository;
         $this->mediaRepository = $mediaRepository;
-        
     }
 
 
@@ -48,12 +48,12 @@ class CategoryContronller extends Controller
      *    ),
      *      @OA\Response(
      *          response=201,
-     *          description="Login Successfully",
+     *          description="Categorie a été bien inserer",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=200,
-     *          description="Login Successfully",
+     *          description="Categorie a été bien inserer",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
@@ -68,7 +68,7 @@ class CategoryContronller extends Controller
 
     public function insertCategory(Request $request)
     {
-         $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'id_user' => 'required|integer',
             'id_parent' => 'integer|nullable',
             'title' => 'required|string',
@@ -78,12 +78,70 @@ class CategoryContronller extends Controller
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
-        } 
-        $category = $this->categoryRepository->createCategory(array_merge($validator->validated())); 
-        $this->mediaRepository->addCategoryImages($category->id, $request->file('file'));
+        }
+        $return_response = $this->categoryRepository->createCategory(array_merge($validator->validated()));
+        $this->mediaRepository->addCategoryImages($return_response->id, $request->file('file'));
         return response()->json([
             'success' => 'Catégory a été bien enregistrer',
-            'category' => $category,
+            'category' => $return_response,
+        ], 200);
+    }
+
+
+    /**
+     * @OA\Put(
+     * path="/category/updateCategory/{id}",
+     * operationId="Category update",
+     * tags={"UPDATE CATEGORY"},
+     * summary="Update category",
+     * description="Category update",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody( 
+     *         @OA\MediaType(
+     *            mediaType="application/json",
+     *            @OA\Schema(
+     *               type="object",
+     *               required={""},  
+     *               @OA\Property(property="title", type="text"),
+     *               @OA\Property(property="description", type="text"),
+     *               @OA\Property(property="price", type="integer"), 
+     *               @OA\Property(property="is_active", type="integer")
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Categorie a été bien modier",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Categorie a été bien modier",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+
+
+    public function updateCategory(Request $request, $id)
+    {
+        $input_data = $request->all();
+        $return_response = $this->categoryRepository->updateCategory($id, $input_data);
+        return response()->json([
+            'success' => 'Catégory a été bien modifier',
+            'category' => $return_response,
         ], 200);
     }
 }
